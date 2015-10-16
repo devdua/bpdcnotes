@@ -1,0 +1,66 @@
+html
+	head
+		title BPDC Notes - Notes
+		meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+		link(rel="stylesheet" href="bootstrap/css/bootstrap.css") 
+		link(rel="stylesheet" href="styles/style.css")
+		link(href="img/LogoBig.png" rel="icon" type="image") 
+		link(href="img/LogoBig.png" rel="apple-touch-icon") 
+		script(type="text/javascript" src="bootstrap/js/jquery.js") 
+		script(type="text/javascript" src="bootstrap/js/bootstrap.js") 
+		script(type="text/javascript" src="js/script.js")
+	body
+		img(src="img/elements.jpg" class="img-responsive" style="width:100%; height:8px") 
+		nav(class="navbar navbar-inverse" role="navigation" style="background: #2a2a2a; padding-top: 15px; border: none; margin-bottom: 30px; padding-right: 10px")
+			a(href="/logout")
+				button(type="button" class="btn btn-primary rf") Logout
+			a(href="/profile")
+				img.img-circle(src="img/userPlaceholder.png" style="float:right;margin:5px; margin-right:10px" height="40px")
+			.navbar-header
+				a(class="navbar-brand" href="/")
+					img(src="img/bitsLight.png" height="50px; text-align:center")
+					&nbsp;Click here to back to BPDC Notes
+		.row(style="width:100%; margin:0; margin-top:-10px")
+			.col-md-2
+			.col-md-10
+				.row#login-area(style="width:100%; padding-top:-10px")
+					h1#TheHeading(style="font-family: OL; color: #38BA49; font-size: 50px; opacity:0; margin-left:15px") Notes
+					br
+				-if(tnotes.length === 0){
+					p.text-primary.error(style="font-size: 1.2em; font-weight: bold; padding:10px;").
+						No notes to show....
+				-}
+				-else{
+					.col-md-10(style="margin:0; padding:0")
+						ul.nav.nav-pills
+							li.dropdown(style="background-color:#3a3a3a")
+								a#drop4(role="button" data-toggle="dropdown" href="#") Select Course: <b class="caret"></b>
+								ul#menu1.dropdown-menu(role="menu" aria-labelledby="drop4")
+									-for(var i = 0; i < tsubs.length; i++){
+										li(role="presentation")
+											a(href = "/user-notes?crslug="+tsubs[i].slug role="menuitem" tabindex="-1") #{tsubs[i].name}
+									-}
+						br
+					.col-md-10(style="margin:0; padding:0")
+						table.table(style="background: #3d3d3d")
+							thead
+								th ID
+								th Course
+								th Download
+							tbody
+								-for(var i = 0; i < tnotes.length; i++){
+									tr.course-tr
+										td #{i+1}
+										td #{tnotes[i].subName}
+										td 
+											a#download(href="/download/"+tnotes[i].id).
+												#{tnotes[i].name} &nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-save" style="color:#aaaaaa;"></span>
+							-}
+				-} 
+				.col-md-2
+	br 
+	br 
+	.row.myStickyFooter
+		center Developed by Dev and Vishnu
+
+

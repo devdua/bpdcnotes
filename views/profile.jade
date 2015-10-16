@@ -1,0 +1,87 @@
+html
+	head
+		title BPDC Notes - #{name}
+		meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+		link(rel="stylesheet" href="bootstrap/css/bootstrap.css") 
+		link(rel="stylesheet" href="styles/style.css")
+		link(href="img/LogoBig.png" rel="icon" type="image") 
+		link(href="img/LogoBig.png" rel="apple-touch-icon") 
+		script(type="text/javascript" src="bootstrap/js/jquery.js") 
+		script(type="text/javascript" src="bootstrap/js/bootstrap.js")
+		script(type="text/javascript" src="bootstrap/js/typeahead.min.js")
+		script(type="text/javascript" src="js/profile-form.js")
+	body
+		img(src="img/elements.jpg" class="img-responsive" style="width:100%; height:8px") 
+		nav(class="navbar navbar-inverse" role="navigation" style="background: #2a2a2a; padding-top: 15px; border: none; margin-bottom: 30px; padding-right: 10px")
+			a(href="/logout")
+				button(type="button" class="btn btn-primary rf") Logout
+			a(href="/profile")
+				img.img-circle(src="img/userPlaceholder.png" style="float:right;margin:5px; margin-right:10px" height="40px")
+			.navbar-header
+				a(class="navbar-brand" href="/")
+					img(src="img/bitsLight.png" height="50px; text-align:center")
+					&nbsp;Click here to go back to BPDC Notes
+		.row#loginArea(style="width:100%")
+			center
+				h1#TheHeading(style="font-family: OL; color: #38BA49; font-size: 2.2em; opacity:0") #{name}
+				p#TheTagline.text-center.text-primary(style="font-size: 18px;opacity:0; color:#0099FF;padding:10px;padding-left:20px").
+					Edit Your Profile From Here....
+			br
+			center
+				-if(msg === "wrpass"){
+					p.text-center.text-primary.error(style="font-size: 18px; font-weight: bold; padding:10px;").
+						You have entered wrong Password.
+				-}
+				-if(msg === "err"){
+					p.text-center.text-primary.error(style="font-size: 18px; font-weight: bold; padding:10px;").
+						Error in updating profile. Please try again later.
+				-}
+				-if(msg === "dupf"){
+					p.text-center.text-primary.error(style="font-size: 18px; font-weight: bold; padding:10px;").
+						BITS ID You entered belongs to some one else.
+				-}
+				-if(msg === "Saved"){
+					p#TheTagline.text-center.text-primary(style="font-size: 18px;opacity:0; color:#0099FF;padding:10px;padding-left:20px").
+						Changes Saved...!
+				-}
+				-if(msg === null){
+					p#TheTagline.text-center.text-primary(style="font-size: 18px;opacity:0; color:#0099FF;padding:10px;padding-left:20px").
+						Edit Your Profile From Here....
+				-}
+			.col-md-2
+			.col-md-8(style="padding-left:40px")
+				form#proform.form-horizontal(method="post" action="/profileedit" role="form")
+					.form-group
+						input#username.form-control(type="text" value="#{name}" placeHolder="Full Name" name="registername")
+					.form-group
+						input#bid.form-control(type="text" value="#{bid}" placeHolder="BITS ID" name="registerid")
+					.form-group
+						input#disabledInput.form-control(type="email" value="#{email}" disabled)
+					.form-group
+						input.form-control(type="password" placeHolder="Current Password" name="registerpassword")
+					.form-group
+						input#pass1.form-control(type="password" placeHolder="New Password" name="newpassword")
+					.form-group
+						input#pass2.form-control(type="password" placeHolder="New Password Once More")
+					.form-group
+						input#course-input.form-control(type="text" placeHolder="Add Courses" autocomplete="off" spellcheck="false" dir="auto") 
+					.form-group
+						center#courses-tr
+							h2#TheHeading(style="font-family: OL; color: #38BA49;") Selected Courses
+							-subjs.forEach(function(datum){
+								div(class="course-box #{datum.slug}")
+									p.name #{datum.name}
+									div.delete
+										button.btn.btn-danger(type="button")
+											<span class="glyphicon glyphicon-trash"></span>
+									input(type="hidden" name="courses[]" value="#{datum.slug}")
+							-})
+					center
+						.form-group
+							button#reg-submit.btn.btn-default(type="submit") Update
+			.col-md-2
+			br 
+			br 
+		.row.myStickyFooter
+			center Developed by Dev and Vishnu
+

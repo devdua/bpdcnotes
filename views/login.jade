@@ -1,0 +1,67 @@
+html
+	head
+		title BPDC Now - Login
+		meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+		link(rel="stylesheet" href="bootstrap/css/bootstrap.css") 
+		link(rel="stylesheet" href="styles/style.css")
+		link(href="img/LogoBig.png" rel="icon" type="image") 
+		link(href="img/LogoBig.png" rel="apple-touch-icon") 
+		script(type="text/javascript" src="bootstrap/js/jquery.js") 
+		script(type="text/javascript" src="bootstrap/js/bootstrap.js")
+		script(type="text/javascript" src="js/script.js")
+	body
+		img(src="img/elements.jpg" class="img-responsive" style="width:100%; height:8px") 
+		nav(class="navbar navbar-inverse" role="navigation" style="background: #2a2a2a; padding-top: 15px; border: none; margin-bottom: 30px; padding-right: 10px")
+			a(href="/login")
+				button(type="button" class="btn btn-primary rf") Login
+			a(href="/register")
+				button(type="button" class="btn btn-success rf") Register 
+			.navbar-header
+				a(class="navbar-brand" href="/")
+					img(src="img/bitsLight.png" height="50px; text-align:center")
+					&nbsp;Click here to go back to BPDC Notes
+		.row#loginArea(style="width:100%")
+			center
+				h1#TheHeading(style="font-family: OL; color: #38BA49; font-size: 50px; opacity:0") Login
+				-if(newreg){
+					p#TheTagline.text-center.text-primary(style="font-size: 18px;opacity:0; color:#0099FF;padding:10px;padding-left:20px").
+						Registration Complete. Please login to continue... If you have forgotten your password, click <a href="/forgot" style="color: #00ff99">Here!</a>
+				-}
+				-else if(dupreg){
+					p#TheTagline.text-center.text-primary.error(style="font-size: 18px;opacity:0;padding:10px;padding-left:20px").
+						Your email or BITS ID is already registered! If you have forgotten your password, click <a href="/forgot" style="color: #00ff99">Here!</a>.
+				-}
+				-else if(errreg){
+					p#TheTagline.text-center.text-primary.error(style="font-size: 18px;opacity:0;padding:10px;padding-left:20px").
+						Some Error occured. Please try again later. If persists please contact admin. 
+				-}
+				-else if(wrCred){
+						p.error(style="font-size: 18px; font-weight: bold;") Incorrect Username/Password!
+						p#TheTagline.text-center.text-primary(style="font-size: 18px;opacity:0; color:#0099FF;padding:10px;padding-left:20px").
+							If you have forgotten your password, click <a href="/forgot" style="color: #00ff99">Here!</a>
+				-}
+				-else{
+					p#TheTagline.text-center.text-primary(style="font-size: 18px;opacity:0; color:#0099FF;padding:10px;padding-left:20px").
+						Login with your username and password. If you have forgotten your password, click <a href="/forgot" style="color: #00ff99">Here!</a>
+				-}
+			br
+			.col-md-4
+			.col-md-4(style="padding-left:40px")
+				form.form-horizontal(method="post" action="/loginuser" role="form")
+					.form-group
+						input.form-control#inputEmail3(type="email" name="loginmail" placeholder="Email ID")
+					.form-group
+						input.form-control#inputPassword3(type="password" name="loginpassword" placeholder="Password")
+					.form-group
+						label
+							<input type="checkbox"> Remember me
+					center
+						button.btn.btn-default(type="submit") Sign in
+			.col-md-4
+			br 
+			br 
+			br 
+		.row.myStickyFooter
+			center Developed by Dev and Vishnu
+
+
